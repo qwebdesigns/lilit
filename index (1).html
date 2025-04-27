@@ -1,0 +1,499 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Hide scrollbar but allow scrolling */
+    main::-webkit-scrollbar {
+      display: none;
+    }
+    main {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body class="bg-[#12151d] min-h-screen flex justify-center items-start p-4 sm:p-6">
+  <div class="flex flex-col sm:flex-row w-full max-w-[98vw] sm:max-w-[98vw] md:max-w-[98vw] lg:max-w-[98vw] xl:max-w-[98vw] 2xl:max-w-[98vw] rounded-xl overflow-hidden shadow-lg bg-[#1a1f29] min-h-[90vh] sm:min-h-[95vh]">
+    <!-- Sidebar -->
+    <aside class="bg-[#161a22] w-full sm:w-20 flex sm:flex-col flex-row sm:items-center items-start sm:py-6 py-2 sm:space-y-8 space-x-6 sm:space-x-0 overflow-x-auto sm:overflow-visible rounded-t-xl sm:rounded-t-none sm:rounded-l-xl">
+      <div class="w-10 h-8 rounded-xl bg-[#7a4fff] flex-shrink-0 mx-4 sm:mx-0"></div>
+      <button aria-label="Dashboard" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="dashboard">
+        <i class="fas fa-clock"></i>
+      </button>
+      <button aria-label="Mentions" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="mentions">
+        <i class="fas fa-at"></i>
+      </button>
+      <button aria-label="Weapon Info" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="weapon-info">
+        <i class="fas fa-crosshairs"></i>
+      </button>
+      <button aria-label="Game Profiles" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="game-profiles">
+        <i class="fas fa-user-friends"></i>
+      </button>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-4 sm:p-8 space-y-8 overflow-auto max-h-[90vh] sm:max-h-[95vh] text-white">
+      <!-- Dashboard Tab -->
+      <section data-content="dashboard" class="space-y-8">
+        <!-- Top stats -->
+        <section
+          class="bg-[#1f222b] rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-6 sm:space-y-0"
+        >
+          <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-12 text-white">
+            <div>
+              <p class="text-sm font-normal">Активных событий</p>
+              <p class="text-3xl font-extrabold text-[#2ca9e1] leading-none">3</p>
+            </div>
+            <div class="border-l border-[#2f313a] pl-8 mt-4 sm:mt-0">
+              <p class="text-sm font-normal">Участников</p>
+              <p class="text-3xl font-extrabold text-[#f9f1a5] leading-none">128</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Create event form -->
+        <section class="bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
+          <h2 class="text-xl font-semibold mb-6">Создать мероприятие</h2>
+          <form class="space-y-6">
+            <!-- Дата и время -->
+            <div>
+              <label for="datetime" class="block mb-2 text-sm font-medium">Дата и время</label>
+              <input
+                type="datetime-local"
+                id="datetime"
+                name="datetime"
+                class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              />
+            </div>
+
+            <!-- Чек-боксы с правилами -->
+            <fieldset>
+              <legend class="mb-2 text-sm font-medium">Правила</legend>
+              <div class="flex flex-wrap gap-4">
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules" value="огонь" class="form-checkbox text-[#7a4fff]" />
+                  <span>огонь</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules" value="блоки" class="form-checkbox text-[#7a4fff]" />
+                  <span>блоки</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules" value="лестницы" class="form-checkbox text-[#7a4fff]" />
+                  <span>лестницы</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules" value="баррикады" class="form-checkbox text-[#7a4fff]" />
+                  <span>баррикады</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules" value="щиты" class="form-checkbox text-[#7a4fff]" />
+                  <span>щиты</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Тип -->
+            <div>
+              <label for="type" class="block mb-2 text-sm font-medium">Тип</label>
+              <select
+                id="type"
+                name="type"
+                class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              >
+                <option value="сходка">сходка</option>
+                <option value="тренировка">тренировка</option>
+              </select>
+            </div>
+
+            <!-- Карта -->
+            <div>
+              <label for="map" class="block mb-2 text-sm font-medium">Карта</label>
+              <input
+                type="text"
+                id="map"
+                name="map"
+                placeholder="Введите название карты"
+                class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              />
+            </div>
+
+            <!-- Скины радио кнопки -->
+            <fieldset>
+              <legend class="mb-2 text-sm font-medium">Скины</legend>
+              <div class="flex space-x-6">
+                <label class="inline-flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="skins"
+                    value="Все"
+                    class="form-radio text-[#7a4fff]"
+                    checked
+                  />
+                  <span>Все</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="radio" name="skins" value="без баффов" class="form-radio text-[#7a4fff]" />
+                  <span>без баффов</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <button
+              type="submit"
+              class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+            >
+              Создать
+            </button>
+          </form>
+        </section>
+
+        <!-- Current events -->
+        <section>
+          <h2 class="text-white text-xl font-semibold mb-4">Текущие</h2>
+          <table class="w-full rounded-xl overflow-hidden">
+            <thead class="bg-[#1f222b] text-[#6e7280] text-sm font-semibold">
+              <tr>
+                <th class="text-left py-3 px-6 rounded-tl-xl">Название</th>
+                <th class="text-left py-3 px-6 rounded-tr-xl">Дата и время</th>
+              </tr>
+            </thead>
+            <tbody class="bg-[#f5f8fa] text-[#1a1a1a] text-sm">
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Событие 1</td>
+                <td class="py-3 px-6">01.01.2024 12:00</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Событие 2</td>
+                <td class="py-3 px-6">02.01.2024 15:30</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Событие 3</td>
+                <td class="py-3 px-6">03.01.2024 18:45</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Событие 4</td>
+                <td class="py-3 px-6">04.01.2024 20:00</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Событие 5</td>
+                <td class="py-3 px-6">05.01.2024 09:15</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- Mentions Tab -->
+      <section data-content="mentions" class="hidden space-y-8 max-w-full sm:max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Упоминания в чате</h2>
+        <button
+          type="button"
+          class="mb-4 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+        >
+          Упомянуть всех
+        </button>
+        <div class="overflow-x-auto rounded-xl">
+          <table class="w-full min-w-[480px] rounded-xl overflow-hidden">
+            <thead class="bg-[#1f222b] text-[#6e7280] text-sm font-semibold">
+              <tr>
+                <th class="text-left py-3 px-6 rounded-tl-xl">Запланированное упоминание</th>
+                <th class="text-left py-3 px-6">Время</th>
+                <th class="text-left py-3 px-6 rounded-tr-xl">Статус</th>
+              </tr>
+            </thead>
+            <tbody class="bg-[#f5f8fa] text-[#1a1a1a] text-sm">
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Упоминание 1</td>
+                <td class="py-3 px-6">01.01.2024 12:00</td>
+                <td class="py-3 px-6">Выполнено</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Упоминание 2</td>
+                <td class="py-3 px-6">02.01.2024 15:30</td>
+                <td class="py-3 px-6">Не выполнено</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Упоминание 3</td>
+                <td class="py-3 px-6">03.01.2024 18:45</td>
+                <td class="py-3 px-6">Выполнено</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Упоминание 4</td>
+                <td class="py-3 px-6">04.01.2024 20:00</td>
+                <td class="py-3 px-6">Не выполнено</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Упоминание 5</td>
+                <td class="py-3 px-6">05.01.2024 09:15</td>
+                <td class="py-3 px-6">Выполнено</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Weapon Info Tab -->
+      <section data-content="weapon-info" class="hidden space-y-8 max-w-full sm:max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Инфа об оружии</h2>
+        <form class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
+          <label for="weapon-ttx" class="block mb-2 text-sm font-medium">ТТХ оружия</label>
+          <textarea
+            id="weapon-ttx"
+            name="weapon-ttx"
+            rows="6"
+            class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+            placeholder="Введите технические характеристики оружия"
+          ></textarea>
+          <button
+            type="button"
+            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+          >
+            Запросить новые данные из игры
+          </button>
+        </form>
+        <div class="overflow-x-auto rounded-xl">
+          <table class="w-full min-w-[480px] rounded-xl overflow-hidden">
+            <thead class="bg-[#1f222b] text-[#6e7280] text-sm font-semibold">
+              <tr>
+                <th class="text-left py-3 px-6 rounded-tl-xl">Название оружия</th>
+                <th class="text-left py-3 px-6 rounded-tr-xl">Алиасы</th>
+              </tr>
+            </thead>
+            <tbody class="bg-[#f5f8fa] text-[#1a1a1a] text-sm">
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">AK-47</td>
+                <td class="py-3 px-6">Калаш, АК</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">M4A1</td>
+                <td class="py-3 px-6">М4, Карбин</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">AWP</td>
+                <td class="py-3 px-6">Снайперка</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">Desert Eagle</td>
+                <td class="py-3 px-6">Дигл</td>
+              </tr>
+              <tr class="border-b border-[#e5e7eb]">
+                <td class="py-3 px-6">P90</td>
+                <td class="py-3 px-6">Пистолет-пулемет</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Game Profiles Tab -->
+      <section data-content="game-profiles" class="hidden max-w-full sm:max-w-4xl mx-auto space-y-8">
+        <h2 class="text-xl font-semibold mb-4">Игровые профили</h2>
+        <form id="profiles-form" class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white">
+          <div>
+            <label for="vk-id" class="block mb-2 text-sm font-medium">VK ID (TG)</label>
+            <input
+              type="text"
+              id="vk-id"
+              name="vk-id"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите VK ID или TG"
+            />
+          </div>
+
+          <div id="profiles-container" class="space-y-6">
+            <div class="profile-entry space-y-4 border border-[#3a3f4d] rounded-md p-4">
+              <div>
+                <label class="block mb-2 text-sm font-medium" for="level-0">Уровень</label>
+                <input
+                  type="number"
+                  id="level-0"
+                  name="level[]"
+                  min="0"
+                  class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+                  placeholder="Введите уровень"
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium" for="nickname-0">Никнейм</label>
+                <input
+                  type="text"
+                  id="nickname-0"
+                  name="nickname[]"
+                  class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+                  placeholder="Введите никнейм"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="add-profile"
+            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-2 shadow-md hover:shadow-lg transition-shadow"
+          >
+            +
+          </button>
+
+          <div>
+            <label for="fav-weapon" class="block mb-2 text-sm font-medium">Любимое оружие</label>
+            <input
+              type="text"
+              id="fav-weapon"
+              name="fav-weapon"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите любимое оружие"
+            />
+          </div>
+
+          <div>
+            <label for="socials" class="block mb-2 text-sm font-medium">Соц-сети</label>
+            <input
+              type="text"
+              id="socials"
+              name="socials"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите соц-сети"
+            />
+          </div>
+
+          <div>
+            <label for="description" class="block mb-2 text-sm font-medium">Описание</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите описание"
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="fav-map" class="block mb-2 text-sm font-medium">Любимая карта</label>
+            <input
+              type="text"
+              id="fav-map"
+              name="fav-map"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите любимую карту"
+            />
+          </div>
+
+          <div>
+            <label for="avg-kd" class="block mb-2 text-sm font-medium">Средний К/Д</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              id="avg-kd"
+              name="avg-kd"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="0.00"
+            />
+          </div>
+
+          <div>
+            <label for="awards" class="block mb-2 text-sm font-medium">Награды</label>
+            <input
+              type="text"
+              id="awards"
+              name="awards"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите награды"
+            />
+          </div>
+
+          <div>
+            <label for="title" class="block mb-2 text-sm font-medium">Титул</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите титул"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+          >
+            Обновить или создать
+          </button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Tab switching logic
+    const buttons = document.querySelectorAll('aside button[data-tab]');
+    const sections = document.querySelectorAll('main section[data-content]');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-tab');
+        buttons.forEach(b => b.classList.remove('text-white'));
+        btn.classList.add('text-white');
+        sections.forEach(sec => {
+          if (sec.getAttribute('data-content') === target) {
+            sec.classList.remove('hidden');
+          } else {
+            sec.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Initialize first tab as active
+    buttons[0].classList.add('text-white');
+    sections.forEach((sec, i) => {
+      if (i !== 0) sec.classList.add('hidden');
+    });
+
+    // Add profile entry logic
+    const addProfileBtn = document.getElementById('add-profile');
+    const profilesContainer = document.getElementById('profiles-container');
+
+    addProfileBtn.addEventListener('click', () => {
+      const count = profilesContainer.children.length;
+      const div = document.createElement('div');
+      div.className = 'profile-entry space-y-4 border border-[#3a3f4d] rounded-md p-4';
+      div.innerHTML = `
+        <div>
+          <label class="block mb-2 text-sm font-medium" for="level-${count}">Уровень</label>
+          <input
+            type="number"
+            id="level-${count}"
+            name="level[]"
+            min="0"
+            class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+            placeholder="Введите уровень"
+          />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium" for="nickname-${count}">Никнейм</label>
+          <input
+            type="text"
+            id="nickname-${count}"
+            name="nickname[]"
+            class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+            placeholder="Введите никнейм"
+          />
+        </div>
+      `;
+      profilesContainer.appendChild(div);
+    });
+  </script>
+</body>
+</html>
