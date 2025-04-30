@@ -13,18 +13,17 @@
     body {
       font-family: 'Inter', sans-serif;
     }
-    /* Hide scrollbar but allow scrolling */
     main::-webkit-scrollbar {
       display: none;
     }
     main {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
 <body class="bg-[#12151d] min-h-screen flex justify-center items-start p-4 sm:p-6">
-  <div class="flex flex-col sm:flex-row w-full max-w-[98vw] sm:max-w-[98vw] md:max-w-[98vw] lg:max-w-[98vw] xl:max-w-[98vw] 2xl:max-w-[98vw] rounded-xl overflow-hidden shadow-lg bg-[#1a1f29] min-h-[90vh] sm:min-h-[95vh]">
+  <div class="flex flex-col sm:flex-row w-full max-w-[98vw] rounded-xl overflow-hidden shadow-lg bg-[#1a1f29] min-h-[90vh] sm:min-h-[95vh]">
     <!-- Sidebar -->
     <aside class="bg-[#161a22] w-full sm:w-20 flex sm:flex-col flex-row sm:items-center items-start sm:py-6 py-2 sm:space-y-8 space-x-6 sm:space-x-0 overflow-x-auto sm:overflow-visible rounded-t-xl sm:rounded-t-none sm:rounded-l-xl">
       <div class="w-10 h-8 rounded-xl bg-[#7a4fff] flex-shrink-0 mx-4 sm:mx-0"></div>
@@ -46,7 +45,6 @@
     <main class="flex-1 p-4 sm:p-8 space-y-8 overflow-auto max-h-[90vh] sm:max-h-[95vh] text-white">
       <!-- Dashboard Tab -->
       <section data-content="dashboard" class="space-y-8">
-        <!-- Top stats -->
         <section
           class="bg-[#1f222b] rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-6 sm:space-y-0"
         >
@@ -62,11 +60,9 @@
           </div>
         </section>
 
-        <!-- Create event form -->
         <section class="bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
           <h2 class="text-xl font-semibold mb-6">Создать мероприятие</h2>
           <form class="space-y-6">
-            <!-- Дата и время -->
             <div>
               <label for="datetime" class="block mb-2 text-sm font-medium">Дата и время</label>
               <input
@@ -77,7 +73,6 @@
               />
             </div>
 
-            <!-- Чек-боксы с правилами -->
             <fieldset>
               <legend class="mb-2 text-sm font-medium">Правила</legend>
               <div class="flex flex-wrap gap-4">
@@ -104,7 +99,6 @@
               </div>
             </fieldset>
 
-            <!-- Тип -->
             <div>
               <label for="type" class="block mb-2 text-sm font-medium">Тип</label>
               <select
@@ -117,7 +111,6 @@
               </select>
             </div>
 
-            <!-- Карта -->
             <div>
               <label for="map" class="block mb-2 text-sm font-medium">Карта</label>
               <input
@@ -129,7 +122,6 @@
               />
             </div>
 
-            <!-- Скины радио кнопки -->
             <fieldset>
               <legend class="mb-2 text-sm font-medium">Скины</legend>
               <div class="flex space-x-6">
@@ -159,7 +151,6 @@
           </form>
         </section>
 
-        <!-- Current events -->
         <section>
           <h2 class="text-white text-xl font-semibold mb-4">Текущие</h2>
           <table class="w-full rounded-xl overflow-hidden">
@@ -300,7 +291,28 @@
       <!-- Game Profiles Tab -->
       <section data-content="game-profiles" class="hidden max-w-full sm:max-w-4xl mx-auto space-y-8">
         <h2 class="text-xl font-semibold mb-4">Игровые профили</h2>
-        <form id="profiles-form" class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white">
+        <div class="flex flex-col sm:flex-row gap-4 mb-6 max-w-full sm:max-w-3xl mx-auto">
+          <button id="btn-edit" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+            Редактировать существующий
+          </button>
+          <button id="btn-create" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+            Создать новый
+          </button>
+        </div>
+
+        <form id="profiles-form" class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white hidden" novalidate>
+          <div>
+            <label for="main-game-id" class="block mb-2 text-sm font-medium">Основной игровой ID</label>
+            <input
+              type="text"
+              id="main-game-id"
+              name="main-game-id"
+              class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
+              placeholder="Введите основной игровой ID"
+              required
+            />
+          </div>
+
           <div>
             <label for="vk-id" class="block mb-2 text-sm font-medium">VK ID (TG)</label>
             <input
@@ -493,6 +505,18 @@
         </div>
       `;
       profilesContainer.appendChild(div);
+    });
+
+    // Show/hide form on button click in Game Profiles tab
+    const btnEdit = document.getElementById('btn-edit');
+    const btnCreate = document.getElementById('btn-create');
+    const profilesForm = document.getElementById('profiles-form');
+
+    btnEdit.addEventListener('click', () => {
+      profilesForm.style.display = 'block';
+    });
+    btnCreate.addEventListener('click', () => {
+      profilesForm.style.display = 'block';
     });
   </script>
 </body>
