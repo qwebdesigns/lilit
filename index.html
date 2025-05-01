@@ -21,9 +21,21 @@
       scrollbar-width: none;
     }
   </style>
+  
 </head>
+
 <body class="bg-[#12151d] min-h-screen flex justify-center items-start p-4 sm:p-6">
-  <div class="flex flex-col sm:flex-row w-full max-w-[98vw] rounded-xl overflow-hidden shadow-lg bg-[#1a1f29] min-h-[90vh] sm:min-h-[95vh]">
+  <div id="body1" class=" min-h-screen flex items-center justify-center">
+    <div class="bg-[#121a2a] p-6 rounded-md w-80 flex flex-col items-center">
+      <h1 class="text-white text-xl mb-4 font-sans">Surpass Lilit</h1>
+      <input type="text" id="password_area" placeholder="Код авторизации" onchange="chek_pass()"
+        class="w-full bg-[#1c2436] text-[#6b7280] placeholder-[#6b7280] rounded-md py-2 px-3 mb-6 focus:outline-none focus:ring-2 focus:ring-purple-600" />
+      <button class="w-full bg-[#7c4dff] text-white text-lg rounded-md py-2 font-sans" onclick="chek_pass()">Авторезироваться</button>
+    </div>
+  </div>
+
+  <div id="body2"
+     class="flex flex-col sm:flex-row w-full max-w-[98vw] rounded-xl overflow-hidden shadow-lg bg-[#1a1f29] min-h-[90vh] sm:min-h-[95vh]">
     <!-- Sidebar -->
     <aside class="bg-[#161a22] w-full sm:w-20 flex sm:flex-col flex-row sm:items-center items-start sm:py-6 py-2 sm:space-y-8 space-x-6 sm:space-x-0 overflow-x-auto sm:overflow-visible rounded-t-xl sm:rounded-t-none sm:rounded-l-xl">
       <div class="w-10 h-8 rounded-xl bg-[#7a4fff] flex-shrink-0 mx-4 sm:mx-0"></div>
@@ -62,7 +74,7 @@
 
         <section class="bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
           <h2 class="text-xl font-semibold mb-6">Создать мероприятие</h2>
-          <form class="space-y-6">
+          <form class="space-y-6" action="http://localhost/lilit/party_create.php" method="get">
             <div>
               <label for="datetime" class="block mb-2 text-sm font-medium">Дата и время</label>
               <input
@@ -77,23 +89,23 @@
               <legend class="mb-2 text-sm font-medium">Правила</legend>
               <div class="flex flex-wrap gap-4">
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules" value="огонь" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="огонь" class="form-checkbox text-[#7a4fff]" />
                   <span>огонь</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules" value="блоки" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="блоки" class="form-checkbox text-[#7a4fff]" />
                   <span>блоки</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules" value="лестницы" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="лестницы" class="form-checkbox text-[#7a4fff]" />
                   <span>лестницы</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules" value="баррикады" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="баррикады" class="form-checkbox text-[#7a4fff]" />
                   <span>баррикады</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules" value="щиты" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="щиты" class="form-checkbox text-[#7a4fff]" />
                   <span>щиты</span>
                 </label>
               </div>
@@ -249,7 +261,7 @@
           ></textarea>
           <button
             type="button"
-            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto" disabled
           >
             Запросить новые данные из игры
           </button>
@@ -292,15 +304,17 @@
       <section data-content="game-profiles" class="hidden max-w-full sm:max-w-4xl mx-auto space-y-8">
         <h2 class="text-xl font-semibold mb-4">Игровые профили</h2>
         <div class="flex flex-col sm:flex-row gap-4 mb-6 max-w-full sm:max-w-3xl mx-auto">
-          <button id="btn-edit" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+          <button id="btn-edit"  onclick="edit_profile();" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
             Редактировать существующий
           </button>
-          <button id="btn-create" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+          <button id="btn-create" onclick="new_profile();" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
             Создать новый
           </button>
         </div>
 
-        <form id="profiles-form" class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white hidden" novalidate>
+        <form id="profiles-form"
+          class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white hidden"
+          action="http://localhost/lilit/player_new.php" method="GET" novalidate>
           <div>
             <label for="main-game-id" class="block mb-2 text-sm font-medium">Основной игровой ID</label>
             <input
@@ -446,78 +460,7 @@
       </section>
     </main>
   </div>
-
-  <script>
-    // Tab switching logic
-    const buttons = document.querySelectorAll('aside button[data-tab]');
-    const sections = document.querySelectorAll('main section[data-content]');
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab');
-        buttons.forEach(b => b.classList.remove('text-white'));
-        btn.classList.add('text-white');
-        sections.forEach(sec => {
-          if (sec.getAttribute('data-content') === target) {
-            sec.classList.remove('hidden');
-          } else {
-            sec.classList.add('hidden');
-          }
-        });
-      });
-    });
-
-    // Initialize first tab as active
-    buttons[0].classList.add('text-white');
-    sections.forEach((sec, i) => {
-      if (i !== 0) sec.classList.add('hidden');
-    });
-
-    // Add profile entry logic
-    const addProfileBtn = document.getElementById('add-profile');
-    const profilesContainer = document.getElementById('profiles-container');
-
-    addProfileBtn.addEventListener('click', () => {
-      const count = profilesContainer.children.length;
-      const div = document.createElement('div');
-      div.className = 'profile-entry space-y-4 border border-[#3a3f4d] rounded-md p-4';
-      div.innerHTML = `
-        <div>
-          <label class="block mb-2 text-sm font-medium" for="level-${count}">Уровень</label>
-          <input
-            type="number"
-            id="level-${count}"
-            name="level[]"
-            min="0"
-            class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
-            placeholder="Введите уровень"
-          />
-        </div>
-        <div>
-          <label class="block mb-2 text-sm font-medium" for="nickname-${count}">Никнейм</label>
-          <input
-            type="text"
-            id="nickname-${count}"
-            name="nickname[]"
-            class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
-            placeholder="Введите никнейм"
-          />
-        </div>
-      `;
-      profilesContainer.appendChild(div);
-    });
-
-    // Show/hide form on button click in Game Profiles tab
-    const btnEdit = document.getElementById('btn-edit');
-    const btnCreate = document.getElementById('btn-create');
-    const profilesForm = document.getElementById('profiles-form');
-
-    btnEdit.addEventListener('click', () => {
-      profilesForm.style.display = 'block';
-    });
-    btnCreate.addEventListener('click', () => {
-      profilesForm.style.display = 'block';
-    });
-  </script>
+  <script src="./scripts.js/password.js"></script>
+  <script src="./scripts.js/scritp.js"></script>
 </body>
 </html>
