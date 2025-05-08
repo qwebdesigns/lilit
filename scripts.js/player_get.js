@@ -1,6 +1,6 @@
 function fetchPlayerData(link) {
   fetch(
-    `http://77.222.58.245/php/player_get_bot.php?link=${encodeURIComponent(
+    `https://cors-anywhere.herokuapp.com/http://://77.222.58.245/php/player_get_bot.php?link=${encodeURIComponent(
       link
     )}`
   )
