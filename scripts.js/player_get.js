@@ -1,6 +1,8 @@
 function fetchPlayerData(link) {
   fetch(
-    `http://localhost/lilit/player_get_bot.php?link=${encodeURIComponent(link)}`
+    `http://77.222.58.245/php/player_get_bot.php?link=${encodeURIComponent(
+      link
+    )}`
   )
     .then((response) => {
       if (!response.ok) {
