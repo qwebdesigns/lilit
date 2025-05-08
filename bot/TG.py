@@ -6,7 +6,7 @@ from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTyp
 
 
 TOKEN = "8101722945:AAEppf9IJUZdzDZYQXc_36bfM41x6iqsEGY"
-BASE_URL = "http://77.222.58.245/php/"
+BASE_URL = "https://77.222.58.245/php/"
 
 
 PREFIXES = ["лилит", "лили", "л", "котя", "зая", "лися", "залупа коня"]
@@ -63,15 +63,15 @@ class TelegramBot:
 
     # Обработчики команд
     def handle_maps(self, update: Update, args):
-        response = requests.get(f"{BASE_URL}maps.php")
+        response = requests.get(f"{BASE_URL}maps.php", verify=False)
         return response.text
 
     def handle_clan(self, update: Update, args):
-        response = requests.get(f"{BASE_URL}clan.php")
+        response = requests.get(f"{BASE_URL}clan.php", verify=False)
         return response.text
 
     def handle_party(self, update: Update, args):
-        response = requests.get(f"{BASE_URL}party_get.php")
+        response = requests.get(f"{BASE_URL}party_get.php", verify=False)
         return response.text
 
     def handle_player(self, update: Update, args):
@@ -81,7 +81,9 @@ class TelegramBot:
             if mention_id:
                 user_id = mention_id
 
-        response = requests.get(f"{BASE_URL}player_get_bot.php?link={user_id}")
+        response = requests.get(
+            f"{BASE_URL}player_get_bot.php?link={user_id}", verify=False
+        )
         return response.text
 
     def handle_id(self, update: Update, args):
@@ -100,7 +102,9 @@ class TelegramBot:
             return "Укажите название оружия"
 
         encoded_arg = quote(args.strip().encode("utf-8"))
-        response = requests.get(f"{BASE_URL}weapons.php?alias={encoded_arg}")
+        response = requests.get(
+            f"{BASE_URL}weapons.php?alias={encoded_arg}", verify=False
+        )
         return response.text
 
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE):

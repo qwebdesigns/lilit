@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 TOKEN = "vk1.a.F5iBdU5kTcn8IFxrqHHQ1NqUMijqobXX6p9_uWCLb9KmON1YK6vrIJRKaZGspfFnBubENACoMlKRr7KnWqLBe9H3Q4Y5Mm80Xyy1SWNuzlopdfNK8tlkByNqGC9RdDCvvB7yf-Vmuu-KIwfXcPoGUizezWHoWpVQCOyAzNXOzw_7SDO3VcZ2lWpvCysfHGwVVI3qGRiyAq-p4EHSp90JXQ"
 GROUP_ID = "230274484"
-BASE_URL = "http://77.222.58.245/php/"
+BASE_URL = "https://77.222.58.245/php/"
 
 vk_session = vk_api.VkApi(token=TOKEN)
 vk = vk_session.get_api()
@@ -60,15 +60,15 @@ class VKBot:
 
     # Обработчики команд
     def handle_maps(self, event, args):
-        response = requests.get(f"{BASE_URL}maps.php")
+        response = requests.get(f"{BASE_URL}maps.php", verify=False)
         return response.text
 
     def handle_clan(self, event, args):
-        response = requests.get(f"{BASE_URL}clan.php")
+        response = requests.get(f"{BASE_URL}clan.php", verify=False)
         return response.text
 
     def handle_party(self, event, args):
-        response = requests.get(f"{BASE_URL}party_get.php")
+        response = requests.get(f"{BASE_URL}party_get.php", verify=False)
         return response.text
 
     def handle_player(self, event, args):
@@ -79,12 +79,13 @@ class VKBot:
             if mention_id:
                 user_id = mention_id
 
-        response = requests.get(f"{BASE_URL}player_get_bot.php?link={user_id}")
+        response = requests.get(
+            f"{BASE_URL}player_get_bot.php?link={user_id}", verify=False)
         return response.text
 
     def handle_id(self, event, args):
         user_id = event.obj.message["from_id"]
-        #print(user_id)
+        # print(user_id)
         if args:
             mention_id = self.extract_mention(args)
             if mention_id:
@@ -98,7 +99,8 @@ class VKBot:
             return "Укажите название оружия"
 
         encoded_arg = quote(args.strip().encode("utf-8"))
-        response = requests.get(f"{BASE_URL}weapons.php?alias={encoded_arg}")
+        response = requests.get(
+            f"{BASE_URL}weapons.php?alias={encoded_arg}", verify=False)
         return response.text
 
     def send_message(self, peer_id, message):
