@@ -1,11 +1,39 @@
-function edit_profile() {
+var b12 = document.getElementById("btn-edit");
+var b22 = document.getElementById("btn-create");
+
+function resetButtonColors() {
+  b12.style.backgroundColor = "#7a4fff";
+  b22.style.backgroundColor = "#7a4fff";
+}
+
+function edit_profile(button) {
   document.getElementById("profiles-form").action =
     "http://localhost/lilit/player_old.php";
+
+  document.getElementById("vk-id").addEventListener("change", function () {
+    fetchPlayerData(this.value);
+  });
+
+  resetButtonColors(); // Сбрасываем цвет перед изменением
+  button.style.backgroundColor = "#a892ed";
 }
-function new_profile() {
+
+function new_profile(button) {
   document.getElementById("profiles-form").action =
     "http://localhost/lilit/player_new.php";
+
+  const vkIdInput = document.getElementById("vk-id");
+
+  if (typeof fetchPlayerData === "function") {
+    vkIdInput.removeEventListener("change", function () {
+      fetchPlayerData(this.value);
+    });
+  }
+
+  resetButtonColors(); // Сбрасываем цвет перед изменением
+  button.style.backgroundColor = "#a892ed";
 }
+
 //action="http://localhost/lilit/player_new.php"
 // Tab switching logic
 const buttons = document.querySelectorAll("aside button[data-tab]");

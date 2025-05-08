@@ -42,7 +42,7 @@
       <button aria-label="Dashboard" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="dashboard">
         <i class="fas fa-clock"></i>
       </button>
-      <button aria-label="Mentions" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="mentions">
+      <button aria-label="Mentions" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="mentions" disabled title="Упоминания отключены">
         <i class="fas fa-at"></i>
       </button>
       <button aria-label="Weapon Info" class="text-[#6e7280] text-xl flex-shrink-0" data-tab="weapon-info">
@@ -62,19 +62,19 @@
         >
           <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-12 text-white">
             <div>
-              <p class="text-sm font-normal">Активных событий</p>
-              <p class="text-3xl font-extrabold text-[#2ca9e1] leading-none">3</p>
+              <p class="text-sm font-normal">Версия</p>
+              <p class="text-3xl font-extrabold text-[#2ca9e1] leading-none">v1.2</p>
             </div>
             <div class="border-l border-[#2f313a] pl-8 mt-4 sm:mt-0">
-              <p class="text-sm font-normal">Участников</p>
-              <p class="text-3xl font-extrabold text-[#f9f1a5] leading-none">128</p>
+              <p class="text-sm font-normal">Текущий пароль</p>
+              <p class="text-3xl font-extrabold text-[#f9f1a5] leading-none">surpass1</p>
             </div>
           </div>
         </section>
 
         <section class="bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
           <h2 class="text-xl font-semibold mb-6">Создать мероприятие</h2>
-          <form class="space-y-6" action="http://localhost/lilit/party_create.php" method="get">
+          <form class="space-y-6" action="http://77.222.58.245/php/party_create.php" method="get">
             <div>
               <label for="datetime" class="block mb-2 text-sm font-medium">Дата и время</label>
               <input
@@ -86,15 +86,20 @@
             </div>
 
             <fieldset>
-              <legend class="mb-2 text-sm font-medium">Правила</legend>
+              <legend class="mb-2 text-sm font-medium">Правила для запрещения</legend>
               <div class="flex flex-wrap gap-4">
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules[]" value="огонь" class="form-checkbox text-[#7a4fff]" />
+                  <input type="checkbox" name="rules[]" value="огонь (любой)" class="form-checkbox text-[#7a4fff]" />
                   <span>огонь</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules[]" value="блоки" class="form-checkbox text-[#7a4fff]" />
-                  <span>блоки</span>
+                  <input type="checkbox" name="rules[]" value="блоки (только лестницы)" class="form-checkbox text-[#7a4fff]" />
+                  <span>блоки (можно только лестницы)</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules[]" value="блоки (только лестницы)"
+                    class="form-checkbox text-[#7a4fff]" />
+                  <span>блоки (включаяя лестницы)</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
                   <input type="checkbox" name="rules[]" value="лестницы" class="form-checkbox text-[#7a4fff]" />
@@ -105,8 +110,18 @@
                   <span>баррикады</span>
                 </label>
                 <label class="inline-flex items-center space-x-2">
-                  <input type="checkbox" name="rules[]" value="щиты" class="form-checkbox text-[#7a4fff]" />
-                  <span>щиты</span>
+                  <input type="checkbox" name="rules[]" value="щиты (сковородки)" class="form-checkbox text-[#7a4fff]" />
+                  <span>щиты (сковородки)</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules[]" value="расход"
+                    class="form-checkbox text-[#7a4fff]" />
+                  <span>расход</span>
+                </label>
+                <label class="inline-flex items-center space-x-2">
+                  <input type="checkbox" name="rules[]" value="аптечки"
+                    class="form-checkbox text-[#7a4fff]" />
+                  <span>аптечки</span>
                 </label>
               </div>
             </fieldset>
@@ -118,8 +133,8 @@
                 name="type"
                 class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
               >
-                <option value="сходка">сходка</option>
-                <option value="тренировка">тренировка</option>
+                <option value="сходка">Сходка</option>
+                <option value="тренировка">Тренировка</option>
               </select>
             </div>
 
@@ -149,7 +164,7 @@
                 </label>
                 <label class="inline-flex items-center space-x-2">
                   <input type="radio" name="skins" value="без баффов" class="form-radio text-[#7a4fff]" />
-                  <span>без баффов</span>
+                  <span>Без баффов</span>
                 </label>
               </div>
             </fieldset>
@@ -163,7 +178,7 @@
           </form>
         </section>
 
-        <section>
+        <section hidden>
           <h2 class="text-white text-xl font-semibold mb-4">Текущие</h2>
           <table class="w-full rounded-xl overflow-hidden">
             <thead class="bg-[#1f222b] text-[#6e7280] text-sm font-semibold">
@@ -251,18 +266,17 @@
       <section data-content="weapon-info" class="hidden space-y-8 max-w-full sm:max-w-4xl mx-auto">
         <h2 class="text-xl font-semibold mb-4">Инфа об оружии</h2>
         <form class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto">
-          <label for="weapon-ttx" class="block mb-2 text-sm font-medium">ТТХ оружия</label>
+          <label for="weapon-ttx" class="block mb-2 text-sm font-medium">Console</label>
           <textarea
             id="weapon-ttx"
             name="weapon-ttx"
             rows="6"
             class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
-            placeholder="Введите технические характеристики оружия"
+            placeholder="Отключение..."
           ></textarea>
-          <button
-            type="button"
-            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto" disabled
-          >
+          <button type="button"
+            class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+            onclick="window.open('http://77.222.58.245/php/weapons_import.php', '_blank')" disabled> 
             Запросить новые данные из игры
           </button>
         </form>
@@ -270,30 +284,30 @@
           <table class="w-full min-w-[480px] rounded-xl overflow-hidden">
             <thead class="bg-[#1f222b] text-[#6e7280] text-sm font-semibold">
               <tr>
-                <th class="text-left py-3 px-6 rounded-tl-xl">Название оружия</th>
-                <th class="text-left py-3 px-6 rounded-tr-xl">Алиасы</th>
+                <th class="text-left py-3 px-6 rounded-tl-xl">Дата обновления данных</th>
+                <th class="text-left py-3 px-6 rounded-tr-xl">Результат</th>
               </tr>
             </thead>
             <tbody class="bg-[#f5f8fa] text-[#1a1a1a] text-sm">
               <tr class="border-b border-[#e5e7eb]">
-                <td class="py-3 px-6">AK-47</td>
-                <td class="py-3 px-6">Калаш, АК</td>
+                <td class="py-3 px-6">08.05.2025 15:51</td>
+                <td class="py-3 px-6">Успех</td>
               </tr>
               <tr class="border-b border-[#e5e7eb]">
-                <td class="py-3 px-6">M4A1</td>
-                <td class="py-3 px-6">М4, Карбин</td>
+                <td class="py-3 px-6">04.05.2025 02:32</td>
+                <td class="py-3 px-6">Успех</td>
               </tr>
               <tr class="border-b border-[#e5e7eb]">
-                <td class="py-3 px-6">AWP</td>
-                <td class="py-3 px-6">Снайперка</td>
+                <td class="py-3 px-6">03.05.2025 --:--</td>
+                <td class="py-3 px-6">Не успех</td>
               </tr>
               <tr class="border-b border-[#e5e7eb]">
-                <td class="py-3 px-6">Desert Eagle</td>
-                <td class="py-3 px-6">Дигл</td>
+                <td class="py-3 px-6">01.05.2025 --:--</td>
+                <td class="py-3 px-6">Не успех</td>
               </tr>
               <tr class="border-b border-[#e5e7eb]">
-                <td class="py-3 px-6">P90</td>
-                <td class="py-3 px-6">Пистолет-пулемет</td>
+                <td class="py-3 px-6">27.04.2025</td>
+                <td class="py-3 px-6">Все данные из игры, успешно загружены</td>
               </tr>
             </tbody>
           </table>
@@ -304,17 +318,17 @@
       <section data-content="game-profiles" class="hidden max-w-full sm:max-w-4xl mx-auto space-y-8">
         <h2 class="text-xl font-semibold mb-4">Игровые профили</h2>
         <div class="flex flex-col sm:flex-row gap-4 mb-6 max-w-full sm:max-w-3xl mx-auto">
-          <button id="btn-edit"  onclick="edit_profile();" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+          <button id="btn-edit"  onclick="edit_profile(this);" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
             Редактировать существующий
           </button>
-          <button id="btn-create" onclick="new_profile();" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
+          <button id="btn-create" onclick="new_profile(this);" class="flex-1 bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow">
             Создать новый
           </button>
         </div>
 
         <form id="profiles-form"
           class="space-y-6 bg-[#1f222b] rounded-xl p-6 max-w-full sm:max-w-3xl mx-auto text-white hidden"
-          action="http://localhost/lilit/player_new.php" method="GET" novalidate>
+          action="http://77.222.58.245/php/player_new.php" method="GET" novalidate>
           <div>
             <label for="main-game-id" class="block mb-2 text-sm font-medium">Основной игровой ID</label>
             <input
@@ -328,13 +342,14 @@
           </div>
 
           <div>
-            <label for="vk-id" class="block mb-2 text-sm font-medium">VK ID (TG)</label>
+            <label for="vk-id" class="block mb-2 text-sm font-medium">VK ID (TG ID)</label>
             <input
               type="text"
               id="vk-id"
               name="vk-id"
               class="w-full rounded-md bg-[#2a2e3a] border border-[#3a3f4d] px-4 py-2 text-white placeholder-[#6e7280] focus:outline-none focus:ring-2 focus:ring-[#7a4fff]"
-              placeholder="Введите VK ID или TG"
+              placeholder="Введи VK или TG ID (Узнать свой ID можно командой 'л айди')"
+              
             />
           </div>
 
@@ -449,7 +464,7 @@
               placeholder="Введите титул"
             />
           </div>
-
+          
           <button
             type="submit"
             class="bg-[#7a4fff] text-white font-semibold rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
@@ -460,6 +475,7 @@
       </section>
     </main>
   </div>
+  <script src="./scripts.js/player_get.js"></script>
   <script src="./scripts.js/password.js"></script>
   <script src="./scripts.js/scritp.js"></script>
 </body>
