@@ -8,7 +8,7 @@ function resetButtonColors() {
 
 function edit_profile(button) {
   document.getElementById("profiles-form").action =
-    "http://localhost/lilit/player_old.php";
+    "https://77.222.58.245/php/player_old.php";
 
   document.getElementById("vk-id").addEventListener("change", function () {
     fetchPlayerData(this.value);
@@ -20,7 +20,7 @@ function edit_profile(button) {
 
 function new_profile(button) {
   document.getElementById("profiles-form").action =
-    "http://localhost/lilit/player_new.php";
+    "https://77.222.58.245/php/player_new.php";
 
   const vkIdInput = document.getElementById("vk-id");
 
