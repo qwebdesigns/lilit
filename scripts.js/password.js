@@ -1,7 +1,8 @@
 const b1 = document.getElementById('body1');
 const b2 = document.getElementById("body2");
 
-b2.classList.add("hidden");
+b1.classList.add("hidden");
+/*
 var pass = "c3VycGFzczE=";
 var local_pass = localStorage.getItem('password');
 var _pass = localStorage.getItem('local_password');
@@ -37,4 +38,4 @@ function chek_pass() {
         b2.classList.remove("hidden");
         localStorage.setItem("local_password", form_password);
     }
-}
+}*/
