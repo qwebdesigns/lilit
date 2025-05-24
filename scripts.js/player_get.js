@@ -99,13 +99,13 @@ function fillForm(jsonData) {
   });
 
   // Заполнение других полей
-  document.getElementById("main-game-id").value = formData["ID"] || "";
+  document.getElementById("main-game-id").value = formData["🔖 ID"] || "";
   document.getElementById("vk-id").value = formData["Ссылка"] || "";
   document.getElementById("fav-weapon").value =
-    formData["Любимое оружие"] || "";
+    formData["🔫 Любимое оружие"] || "";
 
   // Очистка значения для соцсетей
-  const socials = formData["Соцсети"] || "";
+  const socials = formData["🌐 Соцсети"] || "";
   const cleanedSocials = socials
     .replace(/<[^>]*>/g, "") // Удаляем HTML-теги
     .replace(/&nbsp;/g, " ") // Заменяем HTML-сущность на пробел
@@ -114,7 +114,7 @@ function fillForm(jsonData) {
   document.getElementById("socials").value = cleanedSocials;
 
   // Очистка значения для описания
-  const description = formData["Описание"] || "";
+  const description = formData["📝 Описание"] || "";
   const cleanedDescription = description
     .replace(/<[^>]*>/g, "") // Удаляем HTML-теги
     .replace(/&nbsp;/g, " ") // Заменяем HTML-сущность на пробел
@@ -123,7 +123,7 @@ function fillForm(jsonData) {
   document.getElementById("description").value = cleanedDescription;
 
   // Очистка значения для любимых карт
-  const favoriteMaps = formData["Любимые карты"] || "";
+  const favoriteMaps = formData["🗺️ Любимые карты"] || "";
   const cleanedMaps = favoriteMaps
     .replace(/<[^>]*>/g, "") // Удаляем HTML-теги
     .replace(/&nbsp;/g, " ") // Заменяем HTML-сущность на пробел
@@ -131,7 +131,7 @@ function fillForm(jsonData) {
 
   document.getElementById("fav-map").value = cleanedMaps;
 
-  document.getElementById("avg-kd").value = formData["Средний K/D"] || "";
-  document.getElementById("awards").value = formData["Награды"] || "";
-  document.getElementById("title").value = formData["Титул"] || "";
+  document.getElementById("avg-kd").value = formData["📊 Средний K/D"] || "";
+  document.getElementById("awards").value = formData["🏆 Награды"] || "";
+  document.getElementById("title").value = formData["🎖️ Титул"] || "";
 }

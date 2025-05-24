@@ -12,15 +12,18 @@ vk_session = vk_api.VkApi(token=TOKEN)
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, GROUP_ID)
 
-PREFIXES = ["лилит", "лили", "л", "котя", "зая", "лися", "залупа коня"]
+PREFIXES = ["лилит", "лили", "л", "котя", "зая", "лися", "т"]
 COMMANDS = {
     "карты": {"handler": "handle_maps", "args": False},
     "клан вк": {"handler": "handle_clan", "args": False},
+    "клан стим": {"handler": "handle_clan2", "args": False},
     "го": {"handler": "handle_party", "args": False},
     "айди": {"handler": "handle_id", "args": False},
     "участник": {"handler": "handle_player", "args": True},
     "ттх": {"handler": "handle_weapons", "args": True},
+    "ттк": {"handler": "handle_weapons_ttk", "args": True},
     "о": {"handler": "handle_weapons", "args": True},
+    "профили": {"handler": "handle_profiles", "args": False},
 }
 
 
@@ -32,10 +35,17 @@ class VKBot:
         text_lower = text.lower()
         for prefix in PREFIXES:
             if text_lower.startswith(prefix.lower()):
-                clean_text = text[len(prefix) :].strip()
+                clean_text = text[len(prefix):].strip()
+                if not clean_text:
+                    return None
+
+                # Разделяем текст на слова
+                words = clean_text.split()
+                command_part = words[0]  # Первая часть текста
                 for cmd in self.commands_priority:
-                    if clean_text.lower().startswith(cmd.lower()):
-                        args = clean_text[len(cmd) :].strip()
+                    # Проверяем на точное совпадение с помощью регулярного выражения
+                    if re.match(rf'^{cmd}\b', command_part):
+                        args = ' '.join(words[1:])  # Остальные части текста как аргументы
                         return {"command": cmd, "args": args if args else None}
                 return {"command": None, "args": clean_text}
         return None
@@ -63,24 +73,32 @@ class VKBot:
         response = requests.get(f"{BASE_URL}maps.php", verify=False)
         return response.text
 
+    def handle_profiles(self, event, args):
+        response = requests.get(f"{BASE_URL}players_ID.php", verify=False)
+        return response.text
+    
     def handle_clan(self, event, args):
         response = requests.get(f"{BASE_URL}clan.php", verify=False)
         return response.text
-
+    
+    def handle_clan2(self, event, args):
+        response = requests.get(f"{BASE_URL}clan_steam.php", verify=False)
+        return response.text
+    
     def handle_party(self, event, args):
         response = requests.get(f"{BASE_URL}party_get.php", verify=False)
         return response.text
 
     def handle_player(self, event, args):
         user_id = event.obj.message["from_id"]
-        print(user_id)
-        if args:
-            mention_id = self.extract_mention(args)
-            if mention_id:
-                user_id = mention_id
-
+        #print("айди1 = " + str(user_id) + " id2 = " + str(args))
+        if args != None:
+            search_id = args
+        else: 
+            search_id = user_id
         response = requests.get(
-            f"{BASE_URL}player_get_bot.php?link={user_id}", verify=False)
+            f"{BASE_URL}player_get_bot.php?link={search_id}", verify=False)
+        print(f"{BASE_URL}player_get_bot.php?link={search_id}")
         return response.text
 
     def handle_id(self, event, args):
@@ -101,6 +119,16 @@ class VKBot:
         encoded_arg = quote(args.strip().encode("utf-8"))
         response = requests.get(
             f"{BASE_URL}weapons.php?alias={encoded_arg}", verify=False)
+        return response.text
+    
+    def handle_weapons_ttk(self, event, args):
+        if not args:
+            return "Укажите название оружия"
+
+        encoded_arg = quote(args.strip().encode("utf-8"))
+        response = requests.get(
+            f"{BASE_URL}weapons_ttk.php?alias={encoded_arg}", verify=False
+        )
         return response.text
 
     def send_message(self, peer_id, message):
